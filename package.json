@@ -1,6 +1,6 @@
 {
   "name": "react-native-apex-widgets",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A library includes the most useful widgets in react-native applications.",
   "main": "index.js",
   "scripts": {
