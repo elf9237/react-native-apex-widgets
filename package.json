@@ -1,0 +1,33 @@
+{
+  "name": "react-native-apex-widgets",
+  "version": "1.0.0",
+  "description": "A library includes the most useful widgets in react-native applications.",
+  "main": "index.js",
+  "scripts": {
+    "flow": "flow",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "apex",
+    "widgets",
+    "components"
+  ],
+  "author": "linjinyi <597790581@qq.com> (https://github.com/glinjy)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.2",
+    "eslint-config-react-app": "^1.0.5",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.0.1",
+    "flow-bin": "0.40.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-native": ">=0.43.0"
+  }
+}

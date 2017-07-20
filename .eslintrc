@@ -1,0 +1,71 @@
+{
+  "parser": "babel-eslint",
+
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+  },
+
+  "env": {
+    "es6": true,
+    "commonjs": true,
+  },
+
+  "extends": [
+    "airbnb",
+    "react-app",
+    "plugin:jsx-a11y/recommended",
+    "plugin:flowtype/recommended",
+  ],
+
+  "plugins": [
+    "react",
+    "flowtype",
+    "jsx-a11y",
+    "import",
+  ],
+
+  "globals": {
+    "__DEV__": true,
+  },
+
+  "rules": {
+    "import/prefer-default-export": 0,
+    "no-undef": 0,
+    "no-unused-vars": 1,
+    "no-unused-expressions": 0,
+    "no-underscore-dangle": 0,
+    "arrow-body-style": 0,
+    "no-use-before-define": 0,
+    "jsx-a11y/href-no-hash": 0,
+    "react/require-default-props": 0,
+    "react/prefer-stateless-function": 0,
+    "react/no-unused-prop-types": 1,
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "react/sort-comp": [1, {
+      "order": [
+        "type-annotations",
+        "static-methods",
+        "lifecycle",
+        "everything-else",
+        "render-others",
+        "render"
+      ],
+      "groups": {
+        "render-others": [
+          "/^render.+$/"
+        ]
+      }
+    }],
+  }
+}
