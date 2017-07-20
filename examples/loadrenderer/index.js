@@ -4,7 +4,7 @@ import React from 'react';
 import { ScrollView, View, Text } from 'react-native';
 import LoadRenderer from '../../src/LoadRenderer';
 
-function createCase(query) {
+function createCase(loader) {
   class Loading extends React.Component {
     renderChild = (result: Object) => {
       return (
@@ -19,7 +19,7 @@ function createCase(query) {
     render() {
       return (
         <LoadRenderer
-          query={query}
+          loader={loader}
           render={this.renderChild}
           style={{ height: 200 }}
         />

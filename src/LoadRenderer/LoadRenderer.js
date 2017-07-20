@@ -5,13 +5,13 @@ import { View, ActivityIndicator, InteractionManager } from 'react-native';
 import NoData from './NoData';
 import Retry from './Retry';
 
-type QueryResult = {
+type LoadResult = {
   status: 1 | 2,
 };
 
 type State = {
   loading: ?boolean,
-  result: ?QueryResult,
+  result: ?LoadResult,
   error: any,
 };
 
@@ -26,15 +26,15 @@ const INIT_STATE = {
 
 class LoadRenderer extends React.Component {
   props: {
-    query: () => Promise<QueryResult>,
-    render: (result: QueryResult) => React$Element<any>,
+    loader: () => Promise<LoadResult>,
+    render: (result: LoadResult) => React$Element<any>,
     style?: any,
   };
 
   _isMounted: boolean;
 
   static defaultProps = {
-    query: InteractionManager.runAfterInteractions,
+    loader: InteractionManager.runAfterInteractions,
   };
 
   static OK = OK;
@@ -44,7 +44,7 @@ class LoadRenderer extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this.runQuery();
+    this.load();
   }
 
   componentWillUnmount() {
@@ -52,7 +52,7 @@ class LoadRenderer extends React.Component {
   }
 
 
-  runQuery = async () => {
+  load = async () => {
     if (!this._isMounted) return;
 
     this.setState(INIT_STATE);
@@ -60,7 +60,7 @@ class LoadRenderer extends React.Component {
     const nextState = { ...INIT_STATE };
 
     try {
-      nextState.result = await this.props.query() || {};
+      nextState.result = await this.props.loader();
     } catch (err) {
       nextState.error = err;
     }
@@ -85,7 +85,7 @@ class LoadRenderer extends React.Component {
       child = (
         <Retry
           error={this.state.error}
-          onPress={this.runQuery}
+          onPress={this.load}
         />
       );
     } else {
