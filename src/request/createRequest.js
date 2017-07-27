@@ -6,36 +6,26 @@ import objectify from './objectify';
 export type Method = 'POST' | 'GET' | 'PUT';
 
 export type Options = {
-  headers?: () => Object,
+  headers?: () => ?Object,
   serverURL?: string,
   callback?: (response: Object) => any,
 };
 
-const defaults = {
-  headers: () => {},
-  serverURL: '',
-  callback: response => response,
-};
-
-export default function createRequest(options: Options = {}) {
-  const requsetOptions = { ...defaults, ...options };
-
-  const {
-    headers: setHeaders,
-    serverURL,
-    callback,
-  } = requsetOptions;
-
+export default function createRequest({
+  headers: setHeaders = () => {},
+  serverURL = '',
+  callback = response => response,
+}: Options = {}) {
   return (
     method: Method,
   ) => (
     url: string,
-    body?: Object,
-  ): Promise<any> => stringify(body)
-    .then(_bodyInit => ({
+    bodyOrQueryObj?: Object,
+  ): Promise<Object> => stringify(bodyOrQueryObj, method)
+    .then(({ querystring, _bodyInit }) => ({
       method,
       headers: setHeaders(),
-      url: serverURL + url,
+      url: serverURL + url + (querystring || ''),
       _bodyInit,
     }))
     .then(fetch)

@@ -27,7 +27,7 @@ function printBuffer() {
 
       const title = `${method} ${url} ${`@ ${formatTime(started)}`} ${`(in ${took.toFixed(2)} ms)`}`;
       try {
-        console.group(title);
+        console.groupCollapsed(title);
       } catch (e) {
         console.log(title);
       }
@@ -71,8 +71,8 @@ export default function createRequestLogger(options: Options) {
     method: Method,
   ) => (
     url: string,
-    body?: Object,
-  ): Promise<any> => {
+    bodyOrQueryObj?: Object,
+  ): Promise<Object> => {
     const request = createRequest(options)(method);
 
     const logEntry = {};
@@ -80,9 +80,9 @@ export default function createRequestLogger(options: Options) {
     logEntry.started = Date.now();
     logEntry.method = method;
     logEntry.url = url;
-    logEntry.data = body;
+    logEntry.data = bodyOrQueryObj;
 
-    return request(url, body)
+    return request(url, bodyOrQueryObj)
       .then((resp) => {
         logEntry.took = Date.now() - logEntry.started;
         logEntry.resp = resp;
