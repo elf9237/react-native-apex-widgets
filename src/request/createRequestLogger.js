@@ -71,7 +71,7 @@ export default function createRequestLogger(options: Options) {
     method: Method,
   ) => (
     url: string,
-    bodyOrQueryObj?: Object,
+    bodyOrQueryObj?: Object | string,
   ): Promise<Object> => {
     const request = createRequest(options)(method);
 

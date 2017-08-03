@@ -1,20 +1,9 @@
 // @flow
 
-import querystringModule from 'querystring';
-import type { Method } from './createRequest';
-
 export default function stringify(
-  obj?: Object,
-  method?: Method,
-): Promise<{| querystring?: string, _bodyInit?: string |}> {
-  let querystring;
-  let _bodyInit;
-  if (typeof obj === 'object') {
-    if (method === 'GET') {
-      querystring = `?${querystringModule.stringify(obj)}`;
-    } else {
-      _bodyInit = JSON.stringify(obj);
-    }
-  }
-  return Promise.resolve({ querystring, _bodyInit });
+  obj?: Object | string,
+  stringifyFn: (any) => string = JSON.stringify,
+): Promise<?string> {
+  const string = typeof obj === 'object' ? stringifyFn(obj) : obj;
+  return Promise.resolve(string);
 }
