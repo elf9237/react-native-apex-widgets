@@ -35,7 +35,7 @@ class Watermark extends React.Component {
     ];
 
     return (
-      <View style={watermarkStyles}>
+      <View style={watermarkStyles} pointerEvents="none">
         {children}
       </View>
     );
