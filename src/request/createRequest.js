@@ -3,6 +3,7 @@
 import querystring from 'querystring';
 import stringify from './stringify';
 import objectify from './objectify';
+import setSearch from './setSearch';
 
 export type Method = 'POST' | 'GET' | 'PUT';
 
@@ -25,13 +26,10 @@ export default function createRequest({
   ): Promise<Object> => stringify(bodyOrQueryObj, method === 'GET' ? querystring.stringify : JSON.stringify)
     .then((stringified: ?string) => {
       // Prepare for request input.
-      let _url = serverURL + url;
+      let httpurl = serverURL + url;
       let _bodyInit;
       if (method === 'GET') {
-        if (typeof stringified === 'string') {
-          const sep = /\?/.test(_url) ? '&' : '?';
-          _url += `${sep}${stringified}`;
-        }
+        httpurl = setSearch(stringified, httpurl);
       } else {
         _bodyInit = stringified;
       }
@@ -40,7 +38,7 @@ export default function createRequest({
       return {
         method,
         headers: _headers,
-        url: _url,
+        url: httpurl,
         _bodyInit,
       };
     })
